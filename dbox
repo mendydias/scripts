@@ -23,7 +23,7 @@ dbox_create() {
 
 	echo "Copying provision script..."
 	cp "$DBOX_PROVISION_SCRIPT_LOC" "$INTERNAL_HOME_FOLDER"
-
+	
 	distrobox create -n "$1" -H "$INTERNAL_HOME_FOLDER" --additional-packages "git neovim ripgrep zoxide eza bat clang zig nodejs"
 
 	distrobox enter -nw "$1" -- zsh provision
