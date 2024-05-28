@@ -51,7 +51,7 @@ else
 			exit 2
 		fi
 	elif [ $1 == "enter" ]; then
-		if ! [ $2 == ""]; then
+		if ! [ $2 == "" ]; then
 			dbox_enter "$2"
 			exit 0
 		else
