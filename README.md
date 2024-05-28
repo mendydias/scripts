@@ -6,4 +6,6 @@ easier.
 Simply create a directory called `scripts` in the home directory under `.local`, and
 you should be good to go. (The dot files add this directory to the `$PATH`).
 
+## Run this
+
 `mkdir -p ~/.local/scripts`
