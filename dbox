@@ -1,6 +1,14 @@
 #!/usr/bin/bash
 
-DBOX_HOME_FOLDER="$HOME/Documents/1.projects" 
+# Guards
+if [ -z "$DBOX_HOME_FOLDER" ]; then
+	echo "ERROR! The DBOX_HOME_FOLDER must be set to the directory you want the containers to base their home directory in."
+	exit 2
+elif [ -z "$DBOX_PROVISION_SCRIPT_LOC" ]; then
+	echo "ERROR! DBOX_PROVISION_SCRIPT_LOC must be set to provision the container once initialized."
+	exit 2
+fi
+
 
 dbox_help() {
 	  printf "Thin wrapper around distrobox that makes the most commonly used commands painless.\n\nUSAGE:\tdbox <COMMAND> <ARGS>\n\nCOMMANDS:\n\tcreate: Creates a distrobox with the given name at DBOX_HOME_FOLDER.\n\tenter: Enters into the given container."
@@ -14,7 +22,7 @@ dbox_create() {
 	mkdir -p "$INTERNAL_HOME_FOLDER" 2>/dev/null
 
 	echo "Copying provision script..."
-	cp "$HOME/Documents/4.archives/2.scripts/provision" "$INTERNAL_HOME_FOLDER"
+	cp "$DBOX_PROVISION_SCRIPT_LOC" "$INTERNAL_HOME_FOLDER"
 
 	distrobox create -n "$1" -H "$INTERNAL_HOME_FOLDER" --additional-packages "git neovim ripgrep zoxide eza bat clang zig nodejs"
 

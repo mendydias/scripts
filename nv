@@ -1,12 +1,17 @@
 #!/usr/bin/bash
 
-PROJECT_DIRS="$HOME/Documents/1.projects $HOME/Documents/4.archives/1.projects"
-
+# Guards
+if [ -z "$PROJECT_DIRS" ]; then
+	echo "ERROR! Project base folder(s) not set with PROJECT_DIRS"
+	exit 2
+fi
+	
 if ! command -v fzf 2>&1 >/dev/null; then
 	echo "Please install fzf to use this utility."
 	exit 2
 fi
 
+# The fun stuff
 if [ $# -eq 1 ]; then
 	if [ $1 = "help" ]; then
 		printf "Opens project directory in neovim and optionally restores the project to its last session.\nPlease note that if there is no session saved for a project, the session restore option will open a blank screen.\n\nUSAGE:\tnv [-r]\n\nOPTIONS\n\t-r\tRestore Previous Session"
