@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+
+PROJECT_DIRS="$HOME/Documents/1.projects $HOME/Documents/4.archives/1.projects"
+
+if ! command -v fzf 2>&1 >/dev/null; then
+	echo "Please install fzf to use this utility."
+	exit 2
+fi
+
+if [ $# -eq 1 ]; then
+	if [ $1 = "help" ]; then
+		printf "Opens project directory in neovim and optionally restores the project to its last session.\nPlease note that if there is no session saved for a project, the session restore option will open a blank screen.\n\nUSAGE:\tnv [-r]\n\nOPTIONS\n\t-r\tRestore Previous Session"
+		exit 0
+	elif [ $1 = "-r" ]; then
+		find $PROJECT_DIRS -maxdepth 3 -type d | grep -v "^\." | fzf | xargs -I{} nvim {} -c "cd {}" -c "SessionRestore"
+	else 
+		echo "Option or subcommand not recognized. Type help to check usage."
+	fi
+elif [ $# -gt 1 ]; then
+	echo "Too many arguments. Please type help to check usage."
+	exit 1
+else	
+	find $PROJECT_DIRS -maxdepth 3 -type d | grep -v "^\." | fzf | xargs -I{} nvim {} -c "cd {}" -c "Oil ."
+fi

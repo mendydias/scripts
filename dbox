@@ -1,0 +1,57 @@
+#!/usr/bin/bash
+
+DBOX_HOME_FOLDER="$HOME/Documents/1.projects" 
+
+dbox_help() {
+	  printf "Thin wrapper around distrobox that makes the most commonly used commands painless.\n\nUSAGE:\tdbox <COMMAND> <ARGS>\n\nCOMMANDS:\n\tcreate: Creates a distrobox with the given name at DBOX_HOME_FOLDER.\n\tenter: Enters into the given container."
+}
+
+# Bash is pretty weird, so $1 here means the first argument passed to this function, not the first argument passed to the script
+dbox_create() {
+	local INTERNAL_HOME_FOLDER="$DBOX_HOME_FOLDER/$1" 
+	
+	echo "Making home folder..."
+	mkdir -p "$INTERNAL_HOME_FOLDER" 2>/dev/null
+
+	echo "Copying provision script..."
+	cp "$HOME/Documents/4.archives/2.scripts/provision" "$INTERNAL_HOME_FOLDER"
+
+	distrobox create -n "$1" -H "$INTERNAL_HOME_FOLDER" --additional-packages "git neovim ripgrep zoxide eza bat clang zig nodejs"
+
+	distrobox enter -nw "$1" -- zsh provision
+}
+
+dbox_enter() {
+	distrobox enter -nw "$1"
+}
+
+if [ $# -eq 1 ]; then
+	if [ $1 == "help" ]; then
+		dbox_help
+		exit 0
+	fi
+elif ! [ $# -eq 2 ]; then
+	echo "Invalid use of the command, please type help to check usage."
+	exit 2
+else
+	if [ $1 == "create" ]; then
+		if ! [ $2 == "" ]; then
+			dbox_create "$2"
+			exit 0
+		else
+			echo "Cannot create a container with an empty name"
+			exit 2
+		fi
+	elif [ $1 == "enter" ]; then
+		if ! [ $2 == ""]; then
+			dbox_enter "$2"
+			exit 0
+		else
+			echo "Cannot enter a container without a name"
+			exit 2
+		fi
+	else
+		echo "Unknown subcommand, please type help to check usage."
+		exit 2
+	fi
+fi
