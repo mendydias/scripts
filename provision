@@ -13,9 +13,6 @@ curl -sS https://starship.rs/install.sh | sh
 
 cd $HOME && sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply git@github.com:mendydias/dotfiles.git
 
-echo "Copying neovim project script..."
-cp "$HOME/Documents/4.archives/2.scripts/nv" "$INTERNAL_HOME_FOLDER/.local/scripts/nv"
-
 source $HOME/.zshrc
 
 cd $HOME
