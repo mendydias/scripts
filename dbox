@@ -33,9 +33,15 @@ dbox_enter() {
 	distrobox enter -nw "$1"
 }
 
+# TODO: The logic is not in the right order. This will skip any extra arguments that need to be passed onto distrobox and instead exit silently.
+
 if [ $# -eq 1 ]; then
 	if [ $1 == "help" ]; then
 		dbox_help
+		exit 0
+	else
+		echo "Passing commands on to distrobox..."
+		distrobox "$@"
 		exit 0
 	fi
 elif ! [ $# -eq 2 ]; then
@@ -58,8 +64,5 @@ else
 			echo "Cannot enter a container without a name"
 			exit 2
 		fi
-	else
-		echo "Unknown subcommand, please type help to check usage."
-		exit 2
 	fi
 fi
