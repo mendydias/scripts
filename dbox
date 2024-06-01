@@ -25,6 +25,7 @@ dbox_create() {
 	cp "$DBOX_PROVISION_SCRIPT_LOC" "$INTERNAL_HOME_FOLDER"
 	
 	echo "Copying neovim project script..."
+	mkdir -p "$INTERNAL_HOME_FOLDER/.local/scripts" 2>/dev/null
 	cp "$HOME/Documents/4.archives/2.scripts/nv" "$INTERNAL_HOME_FOLDER/.local/scripts/nv"
 	
 	distrobox create -n "$1" -H "$INTERNAL_HOME_FOLDER" --additional-packages "git neovim ripgrep zoxide eza bat clang zig nodejs"
