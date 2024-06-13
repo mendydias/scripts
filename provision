@@ -13,6 +13,8 @@ curl -sS https://starship.rs/install.sh | sh
 
 cd $HOME && sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply git@github.com:mendydias/dotfiles.git
 
+cd $HOME/.local/bin && curl -LO https://github.com/neovim/neovim/releases/download/v0.10.0/nvim.appimage
+
 source $HOME/.zshrc
 
 cd $HOME
