@@ -28,7 +28,7 @@ dbox_create() {
 	mkdir -p "$INTERNAL_HOME_FOLDER/.local/scripts" 2>/dev/null
 	cp "$HOME/Documents/4.archives/2.scripts/nv" "$INTERNAL_HOME_FOLDER/.local/scripts/nv"
 	
-	distrobox create -n "$1" -H "$INTERNAL_HOME_FOLDER" --additional-packages "git fuse-libs fuse3-libs ripgrep zoxide eza bat clang zig nodejs"
+	distrobox create -n "$1" -H "$INTERNAL_HOME_FOLDER" --additional-packages "git ripgrep zoxide eza clang zig nodejs"
 
 	distrobox enter -nw "$1" -- zsh provision
 }

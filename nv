@@ -17,7 +17,7 @@ if [ $# -eq 1 ]; then
 		printf "Opens project directory in neovim and optionally restores the project to its last session.\nPlease note that if there is no session saved for a project, the session restore option will open a blank screen.\n\nUSAGE:\tnv [-r]\n\nOPTIONS\n\t-r\tRestore Previous Session"
 		exit 0
 	elif [ $1 = "-r" ]; then
-		find $PROJECT_DIRS -maxdepth 3 -type d | grep -v "^\." | fzf | xargs -I{} nvim {} -c "cd {}" -c "SessionRestore"
+		find $PROJECT_DIRS -maxdepth 3 -type d | grep -v "^\." | fzf | xargs -I{} neovide {} -c "cd {}" -c "SessionRestore"
 	else 
 		echo "Option or subcommand not recognized. Type help to check usage."
 	fi
@@ -25,5 +25,5 @@ elif [ $# -gt 1 ]; then
 	echo "Too many arguments. Please type help to check usage."
 	exit 1
 else	
-	find $PROJECT_DIRS -maxdepth 3 -type d | grep -v "^\." | fzf | xargs -I{} nvim {} -c "cd {}" -c "Oil ."
+	find $PROJECT_DIRS -maxdepth 3 -type d | grep -v "^\." | fzf | xargs -I{} neovide {} -c "cd {}" -c "Oil ."
 fi

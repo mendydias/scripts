@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+sudo dnf install zsh && chsh -s /bin/zsh
+
 echo "Setting up dev container.."
 
 mkdir $HOME/.custom-repos
@@ -16,5 +18,21 @@ cd $HOME && sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply git@github.c
 cd $HOME/.local/bin && curl -LO https://github.com/neovim/neovim/releases/download/v0.10.0/nvim.appimage
 
 source $HOME/.zshrc
+
+sudo dnf install -y vlc zoxide exa fd-find ripgrep bat nodejs clang zig
+flatpak install flathub com.github.johnfactotum.Foliate
+
+curl -s "https://get.sdkman.io" | bash
+source $HOME/.sdkman/bin/sdkman-init.sh
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+mkdir $HOME/.local/scripts && rsync -avu --progress $HOME/Documents/4.archives/2.scripts/nv $HOME/.local/scripts
+
+cd $HOME/.local/bin
+curl -Lo nvim https://github.com/neovim/neovim/releases/download/v0.10.0/nvim.appimage && chmod u+x nvim
+curl -Lo neovide https://github.com/neovide/neovide/releases/download/0.13.1/neovide.AppImage && chmod u+x neovide
+curl -Lo obsidian https://github.com/obsidianmd/obsidian-releases/releases/download/v1.6.3/Obsidian-1.6.3.AppImage && chmod u+x obsidian
+curl -Lo wezterm https://github.com/wez/wezterm/releases/download/20240203-110809-5046fc22/WezTerm-20240203-110809-5046fc22-Ubuntu20.04.AppImage && chmod u+x wezterm
 
 cd $HOME
